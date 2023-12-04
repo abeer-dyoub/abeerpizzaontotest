@@ -1,0 +1,3269 @@
+@prefix : <http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#> .
+
+<http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasBase
+:hasBase rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :hasIngredient ;
+         owl:inverseOf :isBaseOf ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:domain :Pizza ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :hasBase ;
+                       owl:someValuesFrom :PizzaBase
+                     ] ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :hasCalorificContentValue ;
+                       owl:someValuesFrom xsd:integer
+                     ] ;
+         rdfs:range :PizzaBase .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasCountryOfOrigin
+:hasCountryOfOrigin rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasIngredient
+:hasIngredient rdf:type owl:ObjectProperty ;
+               owl:inverseOf :isIngredientOf ;
+               rdf:type owl:TransitiveProperty .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasSpiciness
+:hasSpiciness rdf:type owl:ObjectProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:range :SpicinessValuePartition ,
+                         :ValuePartition ,
+                         [ rdf:type owl:Class ;
+                           owl:unionOf ( :Hot
+                                         :Medium
+                                         :Mild
+                                       )
+                         ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasSpicinessPreference
+:hasSpicinessPreference rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Customer ,
+                                    :Person ,
+                                    [ owl:intersectionOf ( :Person
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :purchasedPizza ;
+                                                             owl:someValuesFrom :Pizza
+                                                           ]
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :hasPhone ;
+                                                             owl:someValuesFrom xsd:string
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :purchasedPizza ;
+                                      owl:someValuesFrom :Pizza
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasPhone ;
+                                      owl:someValuesFrom xsd:string
+                                    ] ;
+                        rdfs:range :SpicinessValuePartition ,
+                                   :ValuePartition ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( :Hot
+                                                   :Medium
+                                                   :Mild
+                                                 )
+                                   ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasTopping
+:hasTopping rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasIngredient ;
+            owl:inverseOf :isToppingOf ;
+            rdfs:domain :Pizza ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasBase ;
+                          owl:someValuesFrom :PizzaBase
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasCalorificContentValue ;
+                          owl:someValuesFrom xsd:integer
+                        ] ;
+            rdfs:range :PizzaTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#isBaseOf
+:isBaseOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isIngredientOf ;
+          rdf:type owl:InverseFunctionalProperty ;
+          rdfs:domain :PizzaBase ;
+          rdfs:range :Pizza ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :hasBase ;
+                       owl:someValuesFrom :PizzaBase
+                     ] ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :hasCalorificContentValue ;
+                       owl:someValuesFrom xsd:integer
+                     ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#isIngredientOf
+:isIngredientOf rdf:type owl:ObjectProperty ,
+                         owl:TransitiveProperty .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#isToppingOf
+:isToppingOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :isIngredientOf ;
+             rdfs:domain :PizzaTopping ;
+             rdfs:range :Pizza ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasBase ;
+                          owl:someValuesFrom :PizzaBase
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasCalorificContentValue ;
+                          owl:someValuesFrom xsd:integer
+                        ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#purchasedByCustomer
+:purchasedByCustomer rdf:type owl:ObjectProperty ;
+                     owl:inverseOf :purchasedPizza ;
+                     rdfs:domain :Pizza ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasBase ;
+                                   owl:someValuesFrom :PizzaBase
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasCalorificContentValue ;
+                                   owl:someValuesFrom xsd:integer
+                                 ] ;
+                     rdfs:range :Customer ,
+                                :Person ,
+                                [ owl:intersectionOf ( :Person
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :purchasedPizza ;
+                                                         owl:someValuesFrom :Pizza
+                                                       ]
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :hasPhone ;
+                                                         owl:someValuesFrom xsd:string
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :purchasedPizza ;
+                                  owl:someValuesFrom :Pizza
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasPhone ;
+                                  owl:someValuesFrom xsd:string
+                                ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#purchasedPizza
+:purchasedPizza rdf:type owl:ObjectProperty ;
+                rdfs:domain :Customer ,
+                            :Person ,
+                            [ owl:intersectionOf ( :Person
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :purchasedPizza ;
+                                                     owl:someValuesFrom :Pizza
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasPhone ;
+                                                     owl:someValuesFrom xsd:string
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :purchasedPizza ;
+                              owl:someValuesFrom :Pizza
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasPhone ;
+                              owl:someValuesFrom xsd:string
+                            ] ;
+                rdfs:range :Pizza ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasBase ;
+                             owl:someValuesFrom :PizzaBase
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasCalorificContentValue ;
+                             owl:someValuesFrom xsd:integer
+                           ] .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasCalorificContentValue
+:hasCalorificContentValue rdf:type owl:DatatypeProperty ,
+                                   owl:FunctionalProperty ;
+                          rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasDiscount
+:hasDiscount rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Customer ,
+                         :Person ,
+                         [ owl:intersectionOf ( :Person
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :purchasedPizza ;
+                                                  owl:someValuesFrom :Pizza
+                                                ]
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :hasPhone ;
+                                                  owl:someValuesFrom xsd:string
+                                                ]
+                                              ) ;
+                           rdf:type owl:Class
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :purchasedPizza ;
+                           owl:someValuesFrom :Pizza
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasPhone ;
+                           owl:someValuesFrom xsd:string
+                         ] ;
+             rdfs:range xsd:decimal .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasPhone
+:hasPhone rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Person ;
+          rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#numberOfPizzasPurchased
+:numberOfPizzasPurchased rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :Customer ,
+                                     :Person ,
+                                     [ owl:intersectionOf ( :Person
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :purchasedPizza ;
+                                                              owl:someValuesFrom :Pizza
+                                                            ]
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasPhone ;
+                                                              owl:someValuesFrom xsd:string
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :purchasedPizza ;
+                                       owl:someValuesFrom :Pizza
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasPhone ;
+                                       owl:someValuesFrom xsd:string
+                                     ] ;
+                         rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ssn
+:ssn rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Employee ,
+                 :Person ,
+                 [ owl:intersectionOf ( :Person
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :ssn ;
+                                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange xsd:string
+                                        ]
+                                      ) ;
+                   rdf:type owl:Class
+                 ] ,
+                 [ rdf:type owl:Restriction ;
+                   owl:onProperty :ssn ;
+                   owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                   owl:onDataRange xsd:string
+                 ] ;
+     rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AmericanHotPizza
+:AmericanHotPizza rdf:type owl:Class ;
+                  rdfs:subClassOf :NamedPizza ,
+                                  :Pizza ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasBase ;
+                                    owl:someValuesFrom :PizzaBase
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :CheeseTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :JalapenoTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :MozzarellaTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :PepperoniTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :TomatoTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                                        owl:unionOf ( :JalapenoTopping
+                                                                      :MozzarellaTopping
+                                                                      :PepperoniTopping
+                                                                      :TomatoTopping
+                                                                    )
+                                                      ]
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasCalorificContentValue ;
+                                    owl:someValuesFrom xsd:integer
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AmericanPizza
+:AmericanPizza rdf:type owl:Class ;
+               rdfs:subClassOf :NamedPizza ,
+                               :Pizza ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasBase ;
+                                 owl:someValuesFrom :PizzaBase
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :CheeseTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :MozzarellaTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :PepperoniTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :TomatoTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:allValuesFrom [ rdf:type owl:Class ;
+                                                     owl:unionOf ( :MozzarellaTopping
+                                                                   :PepperoniTopping
+                                                                   :TomatoTopping
+                                                                 )
+                                                   ]
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasCalorificContentValue ;
+                                 owl:someValuesFrom xsd:integer
+                               ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AnchovyTopping
+:AnchovyTopping rdf:type owl:Class ;
+                rdfs:subClassOf :PizzaTopping ,
+                                :SeaFoodTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CaperTopping
+:CaperTopping rdf:type owl:Class ;
+              rdfs:subClassOf :PizzaTopping ,
+                              :VegetableTopping ,
+                              [ rdf:type owl:Class ;
+                                owl:unionOf ( :CheeseTopping
+                                              :VegetableTopping
+                                            )
+                              ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CheeseTopping
+:CheeseTopping rdf:type owl:Class ;
+               rdfs:subClassOf :PizzaTopping ,
+                               [ rdf:type owl:Class ;
+                                 owl:unionOf ( :CheeseTopping
+                                               :VegetableTopping
+                                             )
+                               ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CheesyPizza
+:CheesyPizza rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hasTopping ;
+                                                          owl:someValuesFrom :CheeseTopping
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:subClassOf :Pizza ,
+                             [ owl:intersectionOf ( :Pizza
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :hasTopping ;
+                                                      owl:someValuesFrom :CheeseTopping
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasBase ;
+                               owl:someValuesFrom :PizzaBase
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasTopping ;
+                               owl:someValuesFrom :CheeseTopping
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasCalorificContentValue ;
+                               owl:someValuesFrom xsd:integer
+                             ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Country
+:Country rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Class ;
+                               owl:oneOf ( :America
+                                           :England
+                                           :France
+                                           :Germany
+                                           :Italy
+                                         )
+                             ] ;
+         rdfs:subClassOf [ rdf:type owl:Class ;
+                           owl:oneOf ( :America
+                                       :England
+                                       :France
+                                       :Germany
+                                       :Italy
+                                     )
+                         ] ;
+         rdfs:comment """this class is a set of countries
+it is an enumerated class""" ;
+         rdfs:isDefinedBy <https://www.disim.univaq.it/AbeerDyoub> ;
+         rdfs:label "Paese"@it ;
+         owl:versionInfo "version1" .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer
+:Customer rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :purchasedPizza ;
+                                                       owl:someValuesFrom :Pizza
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasPhone ;
+                                                       owl:someValuesFrom xsd:string
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
+          rdfs:subClassOf :Person ,
+                          [ owl:intersectionOf ( :Person
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :purchasedPizza ;
+                                                   owl:someValuesFrom :Pizza
+                                                 ]
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :hasPhone ;
+                                                   owl:someValuesFrom xsd:string
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :purchasedPizza ;
+                            owl:someValuesFrom :Pizza
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasPhone ;
+                            owl:someValuesFrom xsd:string
+                          ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#DeepPan
+:DeepPan rdf:type owl:Class ;
+         rdfs:subClassOf :PizzaBase .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Employee
+:Employee rdf:type owl:Class ;
+          rdfs:subClassOf :Person ,
+                          [ owl:intersectionOf ( :Person
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :ssn ;
+                                                   owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onDataRange xsd:string
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :ssn ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:string
+                          ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#GreenPepperTopping
+:GreenPepperTopping rdf:type owl:Class ;
+                    rdfs:subClassOf :PepperTopping ,
+                                    :PizzaTopping ,
+                                    :VegetableTopping ,
+                                    [ rdf:type owl:Class ;
+                                      owl:unionOf ( :CheeseTopping
+                                                    :VegetableTopping
+                                                  )
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasSpiciness ;
+                                      owl:someValuesFrom :Medium
+                                    ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#HamTopping
+:HamTopping rdf:type owl:Class ;
+            rdfs:subClassOf :MeatTopping ,
+                            :PizzaTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#HighCaloriePizza
+:HighCaloriePizza rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :hasCalorificContentValue ;
+                                                               owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                    owl:onDatatype xsd:integer ;
+                                                                                    owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                                                           ]
+                                                                                                         )
+                                                                                  ]
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Pizza ,
+                                  [ owl:intersectionOf ( :Pizza
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasCalorificContentValue ;
+                                                           owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                owl:onDatatype xsd:integer ;
+                                                                                owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                                                       ]
+                                                                                                     )
+                                                                              ]
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasBase ;
+                                    owl:someValuesFrom :PizzaBase
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasCalorificContentValue ;
+                                    owl:someValuesFrom xsd:integer
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasCalorificContentValue ;
+                                    owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                         owl:onDatatype xsd:integer ;
+                                                         owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                                ]
+                                                                              )
+                                                       ]
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Hot
+:Hot rdf:type owl:Class ;
+     rdfs:subClassOf :SpicinessValuePartition ,
+                     :ValuePartition ,
+                     [ rdf:type owl:Class ;
+                       owl:unionOf ( :Hot
+                                     :Medium
+                                     :Mild
+                                   )
+                     ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#InconsistentTopping
+:InconsistentTopping rdf:type owl:Class ;
+                     rdfs:subClassOf :CheeseTopping ,
+                                     :PizzaTopping ,
+                                     :VegetableTopping ,
+                                     [ rdf:type owl:Class ;
+                                       owl:unionOf ( :CheeseTopping
+                                                     :VegetableTopping
+                                                   )
+                                     ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#InterestingPizza
+:InterestingPizza rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :hasTopping ;
+                                                               owl:minCardinality "3"^^xsd:nonNegativeInteger
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Pizza ,
+                                  [ owl:intersectionOf ( :Pizza
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasTopping ;
+                                                           owl:minCardinality "3"^^xsd:nonNegativeInteger
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasBase ;
+                                    owl:someValuesFrom :PizzaBase
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:minCardinality "3"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasCalorificContentValue ;
+                                    owl:someValuesFrom xsd:integer
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#JalapenoTopping
+:JalapenoTopping rdf:type owl:Class ;
+                 rdfs:subClassOf :PepperTopping ,
+                                 :PizzaTopping ,
+                                 :VegetableTopping ,
+                                 [ rdf:type owl:Class ;
+                                   owl:unionOf ( :CheeseTopping
+                                                 :VegetableTopping
+                                               )
+                                 ] ,
+                                 [ rdf:type owl:Class ;
+                                   owl:unionOf ( :JalapenoTopping
+                                                 :MozzarellaTopping
+                                                 :PepperoniTopping
+                                                 :TomatoTopping
+                                               )
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasSpiciness ;
+                                   owl:someValuesFrom :Hot
+                                 ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#LowCaloriePizza
+:LowCaloriePizza rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasCalorificContentValue ;
+                                                              owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                   owl:onDatatype xsd:integer ;
+                                                                                   owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                                                          ]
+                                                                                                        )
+                                                                                 ]
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf :Pizza ,
+                                 [ owl:intersectionOf ( :Pizza
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hasCalorificContentValue ;
+                                                          owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                               owl:onDatatype xsd:integer ;
+                                                                               owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                                                      ]
+                                                                                                    )
+                                                                             ]
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasBase ;
+                                   owl:someValuesFrom :PizzaBase
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasCalorificContentValue ;
+                                   owl:someValuesFrom xsd:integer
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasCalorificContentValue ;
+                                   owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                        owl:onDatatype xsd:integer ;
+                                                        owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                               ]
+                                                                             )
+                                                      ]
+                                 ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MeatTopping
+:MeatTopping rdf:type owl:Class ;
+             rdfs:subClassOf :PizzaTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Medium
+:Medium rdf:type owl:Class ;
+        rdfs:subClassOf :SpicinessValuePartition ,
+                        :ValuePartition ,
+                        [ rdf:type owl:Class ;
+                          owl:unionOf ( :Hot
+                                        :Medium
+                                        :Mild
+                                      )
+                        ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MergheritaPizza
+:MergheritaPizza rdf:type owl:Class ;
+                 rdfs:subClassOf :NamedPizza ,
+                                 :Pizza ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasBase ;
+                                   owl:someValuesFrom :PizzaBase
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:someValuesFrom :CheeseTopping
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:someValuesFrom :MozzarellaTopping
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:someValuesFrom :TomatoTopping
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                       owl:unionOf ( :MozzarellaTopping
+                                                                     :TomatoTopping
+                                                                   )
+                                                     ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasCalorificContentValue ;
+                                   owl:someValuesFrom xsd:integer
+                                 ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Mild
+:Mild rdf:type owl:Class ;
+      rdfs:subClassOf :SpicinessValuePartition ,
+                      :ValuePartition ,
+                      [ rdf:type owl:Class ;
+                        owl:unionOf ( :Hot
+                                      :Medium
+                                      :Mild
+                                    )
+                      ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MozzarellaTopping
+:MozzarellaTopping rdf:type owl:Class ;
+                   rdfs:subClassOf :CheeseTopping ,
+                                   :PizzaTopping ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( :CheeseTopping
+                                                   :VegetableTopping
+                                                 )
+                                   ] ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( :JalapenoTopping
+                                                   :MozzarellaTopping
+                                                   :PepperoniTopping
+                                                   :TomatoTopping
+                                                 )
+                                   ] ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( :MozzarellaTopping
+                                                   :OliveTopping
+                                                   :ParmezanTopping
+                                                   :TomatoTopping
+                                                 )
+                                   ] ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( :MozzarellaTopping
+                                                   :PepperoniTopping
+                                                   :TomatoTopping
+                                                 )
+                                   ] ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( :MozzarellaTopping
+                                                   :TomatoTopping
+                                                 )
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasCountryOfOrigin ;
+                                     owl:hasValue :Italy
+                                   ] ;
+                   owl:disjointWith :ParmezanTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MushroomsTopping
+:MushroomsTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :PizzaTopping ,
+                                  :VegetableTopping ,
+                                  [ rdf:type owl:Class ;
+                                    owl:unionOf ( :CheeseTopping
+                                                  :VegetableTopping
+                                                )
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#NamedPizza
+:NamedPizza rdf:type owl:Class ;
+            rdfs:subClassOf :Pizza ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasBase ;
+                              owl:someValuesFrom :PizzaBase
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasCalorificContentValue ;
+                              owl:someValuesFrom xsd:integer
+                            ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#NonVegetarianPizza
+:NonVegetarianPizza rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                               [ rdf:type owl:Class ;
+                                                                 owl:complementOf :VegeterianPizza
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ;
+                    rdfs:subClassOf :Pizza ,
+                                    [ owl:intersectionOf ( :Pizza
+                                                           [ rdf:type owl:Class ;
+                                                             owl:complementOf :VegeterianPizza
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ,
+                                    [ rdf:type owl:Class ;
+                                      owl:complementOf :VegeterianPizza
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasBase ;
+                                      owl:someValuesFrom :PizzaBase
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasCalorificContentValue ;
+                                      owl:someValuesFrom xsd:integer
+                                    ] ;
+                    owl:disjointWith :VegeterianPizza .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#OliveTopping
+:OliveTopping rdf:type owl:Class ;
+              rdfs:subClassOf :PizzaTopping ,
+                              :VegetableTopping ,
+                              [ rdf:type owl:Class ;
+                                owl:unionOf ( :CheeseTopping
+                                              :VegetableTopping
+                                            )
+                              ] ,
+                              [ rdf:type owl:Class ;
+                                owl:unionOf ( :MozzarellaTopping
+                                              :OliveTopping
+                                              :ParmezanTopping
+                                              :TomatoTopping
+                                            )
+                              ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#OnionTopping
+:OnionTopping rdf:type owl:Class ;
+              rdfs:subClassOf :PizzaTopping ,
+                              :VegetableTopping ,
+                              [ rdf:type owl:Class ;
+                                owl:unionOf ( :CheeseTopping
+                                              :VegetableTopping
+                                            )
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasSpiciness ;
+                                owl:someValuesFrom :Hot
+                              ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ParmezanTopping
+:ParmezanTopping rdf:type owl:Class ;
+                 rdfs:subClassOf :CheeseTopping ,
+                                 :PizzaTopping ,
+                                 [ rdf:type owl:Class ;
+                                   owl:unionOf ( :CheeseTopping
+                                                 :VegetableTopping
+                                               )
+                                 ] ,
+                                 [ rdf:type owl:Class ;
+                                   owl:unionOf ( :MozzarellaTopping
+                                                 :OliveTopping
+                                                 :ParmezanTopping
+                                                 :TomatoTopping
+                                               )
+                                 ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PepperTopping
+:PepperTopping rdf:type owl:Class ;
+               rdfs:subClassOf :PizzaTopping ,
+                               :VegetableTopping ,
+                               [ rdf:type owl:Class ;
+                                 owl:unionOf ( :CheeseTopping
+                                               :VegetableTopping
+                                             )
+                               ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PepperoniTopping
+:PepperoniTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :MeatTopping ,
+                                  :PizzaTopping ,
+                                  [ rdf:type owl:Class ;
+                                    owl:unionOf ( :JalapenoTopping
+                                                  :MozzarellaTopping
+                                                  :PepperoniTopping
+                                                  :TomatoTopping
+                                                )
+                                  ] ,
+                                  [ rdf:type owl:Class ;
+                                    owl:unionOf ( :MozzarellaTopping
+                                                  :PepperoniTopping
+                                                  :TomatoTopping
+                                                )
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Person
+:Person rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Pizza
+:Pizza rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasBase ;
+                         owl:someValuesFrom :PizzaBase
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom xsd:integer
+                       ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PizzaBase
+:PizzaBase rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PizzaTopping
+:PizzaTopping rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PrawnTopping
+:PrawnTopping rdf:type owl:Class ;
+              rdfs:subClassOf :PizzaTopping ,
+                              :SeaFoodTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PreferedCustomer
+:PreferedCustomer rdf:type owl:Class ;
+                  rdfs:subClassOf :Customer ,
+                                  :Person ,
+                                  [ owl:intersectionOf ( :Person
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :purchasedPizza ;
+                                                           owl:someValuesFrom :Pizza
+                                                         ]
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasPhone ;
+                                                           owl:someValuesFrom xsd:string
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :purchasedPizza ;
+                                    owl:someValuesFrom :Pizza
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasPhone ;
+                                    owl:someValuesFrom xsd:string
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#RedPepperTopping
+:RedPepperTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :PepperTopping ,
+                                  :PizzaTopping ,
+                                  :VegetableTopping ,
+                                  [ rdf:type owl:Class ;
+                                    owl:unionOf ( :CheeseTopping
+                                                  :VegetableTopping
+                                                )
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasSpiciness ;
+                                    owl:someValuesFrom :Medium
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SalamiTopping
+:SalamiTopping rdf:type owl:Class ;
+               rdfs:subClassOf :MeatTopping ,
+                               :PizzaTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SeaFoodTopping
+:SeaFoodTopping rdf:type owl:Class ;
+                rdfs:subClassOf :PizzaTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SohoPizza
+:SohoPizza rdf:type owl:Class ;
+           rdfs:subClassOf :NamedPizza ,
+                           :Pizza ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasBase ;
+                             owl:someValuesFrom :PizzaBase
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :CheeseTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :MozzarellaTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :OliveTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :ParmezanTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :TomatoTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:allValuesFrom [ rdf:type owl:Class ;
+                                                 owl:unionOf ( :MozzarellaTopping
+                                                               :OliveTopping
+                                                               :ParmezanTopping
+                                                               :TomatoTopping
+                                                             )
+                                               ]
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasCalorificContentValue ;
+                             owl:someValuesFrom xsd:integer
+                           ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SpicinessValuePartition
+:SpicinessValuePartition rdf:type owl:Class ;
+                         owl:equivalentClass [ rdf:type owl:Class ;
+                                               owl:unionOf ( :Hot
+                                                             :Medium
+                                                             :Mild
+                                                           )
+                                             ] ;
+                         rdfs:subClassOf :ValuePartition ,
+                                         [ rdf:type owl:Class ;
+                                           owl:unionOf ( :Hot
+                                                         :Medium
+                                                         :Mild
+                                                       )
+                                         ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SpicyBeefTopping
+:SpicyBeefTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :MeatTopping ,
+                                  :PizzaTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SpicyPizza
+:SpicyPizza rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :hasTopping ;
+                                                         owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                                                   [ rdf:type owl:Restriction ;
+                                                                                                     owl:onProperty :hasSpiciness ;
+                                                                                                     owl:someValuesFrom :Hot
+                                                                                                   ]
+                                                                                                 ) ;
+                                                                              rdf:type owl:Class
+                                                                            ]
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ;
+            rdfs:subClassOf :Pizza ,
+                            [ owl:intersectionOf ( :Pizza
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasTopping ;
+                                                     owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                                               [ rdf:type owl:Restriction ;
+                                                                                                 owl:onProperty :hasSpiciness ;
+                                                                                                 owl:someValuesFrom :Hot
+                                                                                               ]
+                                                                                             ) ;
+                                                                          rdf:type owl:Class
+                                                                        ]
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasBase ;
+                              owl:someValuesFrom :PizzaBase
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasTopping ;
+                              owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty :hasSpiciness ;
+                                                                          owl:someValuesFrom :Hot
+                                                                        ]
+                                                                      ) ;
+                                                   rdf:type owl:Class
+                                                 ]
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasCalorificContentValue ;
+                              owl:someValuesFrom xsd:integer
+                            ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ThinAndCrispy
+:ThinAndCrispy rdf:type owl:Class ;
+               rdfs:subClassOf :PizzaBase .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#TomatoTopping
+:TomatoTopping rdf:type owl:Class ;
+               rdfs:subClassOf :PizzaTopping ,
+                               :VegetableTopping ,
+                               [ rdf:type owl:Class ;
+                                 owl:unionOf ( :CheeseTopping
+                                               :VegetableTopping
+                                             )
+                               ] ,
+                               [ rdf:type owl:Class ;
+                                 owl:unionOf ( :JalapenoTopping
+                                               :MozzarellaTopping
+                                               :PepperoniTopping
+                                               :TomatoTopping
+                                             )
+                               ] ,
+                               [ rdf:type owl:Class ;
+                                 owl:unionOf ( :MozzarellaTopping
+                                               :OliveTopping
+                                               :ParmezanTopping
+                                               :TomatoTopping
+                                             )
+                               ] ,
+                               [ rdf:type owl:Class ;
+                                 owl:unionOf ( :MozzarellaTopping
+                                               :PepperoniTopping
+                                               :TomatoTopping
+                                             )
+                               ] ,
+                               [ rdf:type owl:Class ;
+                                 owl:unionOf ( :MozzarellaTopping
+                                               :TomatoTopping
+                                             )
+                               ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#TunaTopping
+:TunaTopping rdf:type owl:Class ;
+             rdfs:subClassOf :PizzaTopping ,
+                             :SeaFoodTopping .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#UnclosedPizza
+:UnclosedPizza rdf:type owl:Class ;
+               rdfs:subClassOf :NamedPizza ,
+                               :Pizza ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasBase ;
+                                 owl:someValuesFrom :PizzaBase
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :CheeseTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :MozzarellaTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasCalorificContentValue ;
+                                 owl:someValuesFrom xsd:integer
+                               ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ValuePartition
+:ValuePartition rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#VegetableTopping
+:VegetableTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :PizzaTopping ,
+                                  [ rdf:type owl:Class ;
+                                    owl:unionOf ( :CheeseTopping
+                                                  :VegetableTopping
+                                                )
+                                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#VegeterianPizza
+:VegeterianPizza rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasTopping ;
+                                                              owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                  owl:unionOf ( :CheeseTopping
+                                                                                                :VegetableTopping
+                                                                                              )
+                                                                                ]
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf :Pizza ,
+                                 [ owl:intersectionOf ( :Pizza
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hasTopping ;
+                                                          owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                              owl:unionOf ( :CheeseTopping
+                                                                                            :VegetableTopping
+                                                                                          )
+                                                                            ]
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasBase ;
+                                   owl:someValuesFrom :PizzaBase
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                       owl:unionOf ( :CheeseTopping
+                                                                     :VegetableTopping
+                                                                   )
+                                                     ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasCalorificContentValue ;
+                                   owl:someValuesFrom xsd:integer
+                                 ] .
+
+
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdfs:comment "This ontology is about pizza and pizza types" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#America
+:America rdf:type owl:NamedIndividual ,
+                  :Country ,
+                  [ rdf:type owl:Class ;
+                    owl:oneOf ( :America
+                                :England
+                                :France
+                                :Germany
+                                :Italy
+                              )
+                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#American1
+:American1 rdf:type owl:NamedIndividual ,
+                    :AmericanPizza ,
+                    :NamedPizza ,
+                    :Pizza ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasBase ;
+                      owl:someValuesFrom :PizzaBase
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :CheeseTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :MozzarellaTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :PepperoniTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :TomatoTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:allValuesFrom [ rdf:type owl:Class ;
+                                          owl:unionOf ( :MozzarellaTopping
+                                                        :PepperoniTopping
+                                                        :TomatoTopping
+                                                      )
+                                        ]
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasCalorificContentValue ;
+                      owl:someValuesFrom xsd:integer
+                    ] ;
+           :purchasedByCustomer :Customer5 ;
+           :hasCalorificContentValue 450 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#American2
+:American2 rdf:type owl:NamedIndividual ,
+                    :AmericanPizza ,
+                    :NamedPizza ,
+                    :Pizza ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasBase ;
+                      owl:someValuesFrom :PizzaBase
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :CheeseTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :MozzarellaTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :PepperoniTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:someValuesFrom :TomatoTopping
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasTopping ;
+                      owl:allValuesFrom [ rdf:type owl:Class ;
+                                          owl:unionOf ( :MozzarellaTopping
+                                                        :PepperoniTopping
+                                                        :TomatoTopping
+                                                      )
+                                        ]
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasCalorificContentValue ;
+                      owl:someValuesFrom xsd:integer
+                    ] ;
+           :purchasedByCustomer :Customer6 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AmericanHot1
+:AmericanHot1 rdf:type owl:NamedIndividual ,
+                       :AmericanHotPizza ,
+                       :NamedPizza ,
+                       :Pizza ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasBase ;
+                         owl:someValuesFrom :PizzaBase
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :JalapenoTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :MozzarellaTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :PepperoniTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :TomatoTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :JalapenoTopping
+                                                           :MozzarellaTopping
+                                                           :PepperoniTopping
+                                                           :TomatoTopping
+                                                         )
+                                           ]
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom xsd:integer
+                       ] ;
+              :purchasedByCustomer :Customer1 ;
+              :hasCalorificContentValue 600 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AmericanHot2
+:AmericanHot2 rdf:type owl:NamedIndividual ,
+                       :AmericanHotPizza ,
+                       :NamedPizza ,
+                       :Pizza ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasBase ;
+                         owl:someValuesFrom :PizzaBase
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :JalapenoTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :MozzarellaTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :PepperoniTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :TomatoTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :JalapenoTopping
+                                                           :MozzarellaTopping
+                                                           :PepperoniTopping
+                                                           :TomatoTopping
+                                                         )
+                                           ]
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom xsd:integer
+                       ] ;
+              :purchasedByCustomer :Customer1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AmericanHot3
+:AmericanHot3 rdf:type owl:NamedIndividual ,
+                       :AmericanHotPizza ,
+                       :NamedPizza ,
+                       :Pizza ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasBase ;
+                         owl:someValuesFrom :PizzaBase
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :JalapenoTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :MozzarellaTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :PepperoniTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :TomatoTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :JalapenoTopping
+                                                           :MozzarellaTopping
+                                                           :PepperoniTopping
+                                                           :TomatoTopping
+                                                         )
+                                           ]
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom xsd:integer
+                       ] ;
+              :purchasedByCustomer :Customer4 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CheezyPizza1
+:CheezyPizza1 rdf:type owl:NamedIndividual ,
+                       :CheesyPizza ,
+                       :Pizza ,
+                       [ owl:intersectionOf ( :Pizza
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty :hasTopping ;
+                                                owl:someValuesFrom :CheeseTopping
+                                              ]
+                                            ) ;
+                         rdf:type owl:Class
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasBase ;
+                         owl:someValuesFrom :PizzaBase
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom xsd:integer
+                       ] ;
+              :purchasedByCustomer :Customer7 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Chef
+:Chef rdf:type owl:NamedIndividual ,
+               :Employee ,
+               :Person ,
+               [ owl:intersectionOf ( :Person
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :ssn ;
+                                        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onDataRange xsd:string
+                                      ]
+                                    ) ;
+                 rdf:type owl:Class
+               ] ,
+               [ rdf:type owl:Restriction ;
+                 owl:onProperty :ssn ;
+                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                 owl:onDataRange xsd:string
+               ] ;
+      :hasPhone "234-555-1234" ;
+      :ssn "333-22-3222" ,
+           "333-22-4444" .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CustomPizza1
+:CustomPizza1 rdf:type owl:NamedIndividual ,
+                       :Pizza ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasBase ;
+                         owl:someValuesFrom :PizzaBase
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :OliveTopping
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom xsd:integer
+                       ] ;
+              :hasIngredient :OliveTopping1 ,
+                             :SpicyBeefTopping1 ;
+              :hasTopping :OliveTopping1 ,
+                          :SpicyBeefTopping1 ;
+              :purchasedByCustomer :Customer2 ,
+                                   :Customer8 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CustomePizza2
+:CustomePizza2 rdf:type owl:NamedIndividual ,
+                        :Pizza ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasBase ;
+                          owl:someValuesFrom :PizzaBase
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasCalorificContentValue ;
+                          owl:someValuesFrom xsd:integer
+                        ] ;
+               :hasIngredient :GreenPepper1 ,
+                              :MushroomTopping1 ;
+               :hasTopping :GreenPepper1 ,
+                           :MushroomTopping1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer1
+:Customer1 rdf:type owl:NamedIndividual ,
+                    :Customer ;
+           :hasSpicinessPreference :Hot ;
+           :purchasedPizza :AmericanHot1 ,
+                           :AmericanHot2 ;
+           :hasDiscount 0.2 ;
+           :hasPhone "666-457-333" ;
+           :numberOfPizzasPurchased 2 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer10
+:Customer10 rdf:type owl:NamedIndividual ,
+                     :Customer ,
+                     :Person ,
+                     [ owl:intersectionOf ( :Person
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty :purchasedPizza ;
+                                              owl:someValuesFrom :Pizza
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty :hasPhone ;
+                                              owl:someValuesFrom xsd:string
+                                            ]
+                                          ) ;
+                       rdf:type owl:Class
+                     ] ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :purchasedPizza ;
+                       owl:someValuesFrom :Pizza
+                     ] ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :hasPhone ;
+                       owl:someValuesFrom xsd:string
+                     ] ;
+            :hasSpicinessPreference :Mild ;
+            :hasPhone "000-123-456" ;
+            :numberOfPizzasPurchased 1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer2
+:Customer2 rdf:type owl:NamedIndividual ,
+                    :Customer ,
+                    :Person ,
+                    [ owl:intersectionOf ( :Person
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :purchasedPizza ;
+                                             owl:someValuesFrom :Pizza
+                                           ]
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasPhone ;
+                                             owl:someValuesFrom xsd:string
+                                           ]
+                                         ) ;
+                      rdf:type owl:Class
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :purchasedPizza ;
+                      owl:someValuesFrom :Pizza
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasPhone ;
+                      owl:someValuesFrom xsd:string
+                    ] ;
+           :hasSpicinessPreference :Medium ;
+           :purchasedPizza :CustomPizza1 ,
+                           :Mergherita1 ;
+           :hasDiscount 0.1 ;
+           :hasPhone "999-000-555" ;
+           :numberOfPizzasPurchased 2 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer3
+:Customer3 rdf:type owl:NamedIndividual ,
+                    :Customer ,
+                    :Person ,
+                    [ owl:intersectionOf ( :Person
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :purchasedPizza ;
+                                             owl:someValuesFrom :Pizza
+                                           ]
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasPhone ;
+                                             owl:someValuesFrom xsd:string
+                                           ]
+                                         ) ;
+                      rdf:type owl:Class
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :purchasedPizza ;
+                      owl:someValuesFrom :Pizza
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasPhone ;
+                      owl:someValuesFrom xsd:string
+                    ] ;
+           :hasSpicinessPreference :Mild ;
+           :purchasedPizza :Margherita2 ,
+                           :Soho1 ;
+           :numberOfPizzasPurchased 2 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer4
+:Customer4 rdf:type owl:NamedIndividual ,
+                    :Customer ;
+           :hasSpicinessPreference :Hot ;
+           :purchasedPizza :AmericanHot3 ;
+           :hasDiscount 0.2 ;
+           :hasPhone "888-453-222" ;
+           :numberOfPizzasPurchased 3 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer5
+:Customer5 rdf:type owl:NamedIndividual ,
+                    :Customer ,
+                    :Person ,
+                    [ owl:intersectionOf ( :Person
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :purchasedPizza ;
+                                             owl:someValuesFrom :Pizza
+                                           ]
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasPhone ;
+                                             owl:someValuesFrom xsd:string
+                                           ]
+                                         ) ;
+                      rdf:type owl:Class
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :purchasedPizza ;
+                      owl:someValuesFrom :Pizza
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasPhone ;
+                      owl:someValuesFrom xsd:string
+                    ] ;
+           :hasSpicinessPreference :Medium ;
+           :purchasedPizza :American1 ;
+           :hasDiscount 0.1 ;
+           :hasPhone "222-333-111" ;
+           :numberOfPizzasPurchased 2 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer6
+:Customer6 rdf:type owl:NamedIndividual ,
+                    :Customer ,
+                    :Person ,
+                    [ owl:intersectionOf ( :Person
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :purchasedPizza ;
+                                             owl:someValuesFrom :Pizza
+                                           ]
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasPhone ;
+                                             owl:someValuesFrom xsd:string
+                                           ]
+                                         ) ;
+                      rdf:type owl:Class
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :purchasedPizza ;
+                      owl:someValuesFrom :Pizza
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasPhone ;
+                      owl:someValuesFrom xsd:string
+                    ] ;
+           :hasSpicinessPreference :Medium ;
+           :purchasedPizza :American2 ;
+           :hasPhone "111-999-734" ;
+           :numberOfPizzasPurchased 1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer7
+:Customer7 rdf:type owl:NamedIndividual ,
+                    :Customer ,
+                    :Person ,
+                    [ owl:intersectionOf ( :Person
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :purchasedPizza ;
+                                             owl:someValuesFrom :Pizza
+                                           ]
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasPhone ;
+                                             owl:someValuesFrom xsd:string
+                                           ]
+                                         ) ;
+                      rdf:type owl:Class
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :purchasedPizza ;
+                      owl:someValuesFrom :Pizza
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasPhone ;
+                      owl:someValuesFrom xsd:string
+                    ] ;
+           :hasSpicinessPreference :Mild ;
+           :purchasedPizza :CheezyPizza1 ;
+           :hasPhone "777-543-123" ;
+           :numberOfPizzasPurchased 1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer8
+:Customer8 rdf:type owl:NamedIndividual ,
+                    :Customer ;
+           :hasSpicinessPreference :Hot ;
+           :purchasedPizza :CustomPizza1 ;
+           :hasDiscount 0.2 ;
+           :numberOfPizzasPurchased 2 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer9
+:Customer9 rdf:type owl:NamedIndividual ,
+                    :Customer ,
+                    :Person ,
+                    [ owl:intersectionOf ( :Person
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :purchasedPizza ;
+                                             owl:someValuesFrom :Pizza
+                                           ]
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasPhone ;
+                                             owl:someValuesFrom xsd:string
+                                           ]
+                                         ) ;
+                      rdf:type owl:Class
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :purchasedPizza ;
+                      owl:someValuesFrom :Pizza
+                    ] ,
+                    [ rdf:type owl:Restriction ;
+                      owl:onProperty :hasPhone ;
+                      owl:someValuesFrom xsd:string
+                    ] ;
+           :hasSpicinessPreference :Hot ;
+           :purchasedPizza :Soho2 ;
+           :hasPhone "678-333-111" ;
+           :numberOfPizzasPurchased 1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#England
+:England rdf:type owl:NamedIndividual ,
+                  :Country ,
+                  [ rdf:type owl:Class ;
+                    owl:oneOf ( :America
+                                :England
+                                :France
+                                :Germany
+                                :Italy
+                              )
+                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#France
+:France rdf:type owl:NamedIndividual ,
+                 :Country ,
+                 [ rdf:type owl:Class ;
+                   owl:oneOf ( :America
+                               :England
+                               :France
+                               :Germany
+                               :Italy
+                             )
+                 ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Germany
+:Germany rdf:type owl:NamedIndividual ,
+                  :Country ,
+                  [ rdf:type owl:Class ;
+                    owl:oneOf ( :America
+                                :England
+                                :France
+                                :Germany
+                                :Italy
+                              )
+                  ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#GreenPepper1
+:GreenPepper1 rdf:type owl:NamedIndividual ,
+                       :GreenPepperTopping ,
+                       :PepperTopping ,
+                       :PizzaTopping ,
+                       :VegetableTopping ,
+                       [ rdf:type owl:Class ;
+                         owl:unionOf ( :CheeseTopping
+                                       :VegetableTopping
+                                     )
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasSpiciness ;
+                         owl:someValuesFrom :Medium
+                       ] ;
+              :isIngredientOf :CustomePizza2 ;
+              :isToppingOf :CustomePizza2 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Hot
+:Hot rdf:type owl:NamedIndividual ,
+              :SpicinessValuePartition ,
+              :ValuePartition ,
+              [ rdf:type owl:Class ;
+                owl:unionOf ( :Hot
+                              :Medium
+                              :Mild
+                            )
+              ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Italy
+:Italy rdf:type owl:NamedIndividual ,
+                :Country ,
+                [ rdf:type owl:Class ;
+                  owl:oneOf ( :America
+                              :England
+                              :France
+                              :Germany
+                              :Italy
+                            )
+                ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Manager
+:Manager rdf:type owl:NamedIndividual ,
+                  :Employee ,
+                  :Person ,
+                  [ owl:intersectionOf ( :Person
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :ssn ;
+                                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onDataRange xsd:string
+                                         ]
+                                       ) ;
+                    rdf:type owl:Class
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :ssn ;
+                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                    owl:onDataRange xsd:string
+                  ] ;
+         :hasPhone "123-456-7890" ,
+                   "415-555-5678" ;
+         :ssn "321-12-4567" .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Margherita2
+:Margherita2 rdf:type owl:NamedIndividual ,
+                      :MergheritaPizza ,
+                      :NamedPizza ,
+                      :Pizza ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasBase ;
+                        owl:someValuesFrom :PizzaBase
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:someValuesFrom :CheeseTopping
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:someValuesFrom :MozzarellaTopping
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:someValuesFrom :TomatoTopping
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:allValuesFrom [ rdf:type owl:Class ;
+                                            owl:unionOf ( :MozzarellaTopping
+                                                          :TomatoTopping
+                                                        )
+                                          ]
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasCalorificContentValue ;
+                        owl:someValuesFrom xsd:integer
+                      ] ;
+             :purchasedByCustomer :Customer3 ;
+             :hasCalorificContentValue 300 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Medium
+:Medium rdf:type owl:NamedIndividual ,
+                 :SpicinessValuePartition ,
+                 :ValuePartition ,
+                 [ rdf:type owl:Class ;
+                   owl:unionOf ( :Hot
+                                 :Medium
+                                 :Mild
+                               )
+                 ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Mergherita1
+:Mergherita1 rdf:type owl:NamedIndividual ,
+                      :MergheritaPizza ,
+                      :NamedPizza ,
+                      :Pizza ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasBase ;
+                        owl:someValuesFrom :PizzaBase
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:someValuesFrom :CheeseTopping
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:someValuesFrom :MozzarellaTopping
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:someValuesFrom :TomatoTopping
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasTopping ;
+                        owl:allValuesFrom [ rdf:type owl:Class ;
+                                            owl:unionOf ( :MozzarellaTopping
+                                                          :TomatoTopping
+                                                        )
+                                          ]
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasCalorificContentValue ;
+                        owl:someValuesFrom xsd:integer
+                      ] ;
+             :purchasedByCustomer :Customer2 ;
+             :hasCalorificContentValue 260 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Mild
+:Mild rdf:type owl:NamedIndividual ,
+               :SpicinessValuePartition ,
+               :ValuePartition ,
+               [ rdf:type owl:Class ;
+                 owl:unionOf ( :Hot
+                               :Medium
+                               :Mild
+                             )
+               ] .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MushroomTopping1
+:MushroomTopping1 rdf:type owl:NamedIndividual ,
+                           :MushroomsTopping ,
+                           :PizzaTopping ,
+                           :VegetableTopping ,
+                           [ rdf:type owl:Class ;
+                             owl:unionOf ( :CheeseTopping
+                                           :VegetableTopping
+                                         )
+                           ] ;
+                  :isIngredientOf :CustomePizza2 ;
+                  :isToppingOf :CustomePizza2 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#OliveTopping1
+:OliveTopping1 rdf:type owl:NamedIndividual ,
+                        :OliveTopping ,
+                        :PizzaTopping ,
+                        :VegetableTopping ,
+                        [ rdf:type owl:Class ;
+                          owl:unionOf ( :CheeseTopping
+                                        :VegetableTopping
+                                      )
+                        ] ,
+                        [ rdf:type owl:Class ;
+                          owl:unionOf ( :MozzarellaTopping
+                                        :OliveTopping
+                                        :ParmezanTopping
+                                        :TomatoTopping
+                                      )
+                        ] ;
+               :isIngredientOf :CustomPizza1 ;
+               :isToppingOf :CustomPizza1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Soho1
+:Soho1 rdf:type owl:NamedIndividual ,
+                :NamedPizza ,
+                :Pizza ,
+                :SohoPizza ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasBase ;
+                  owl:someValuesFrom :PizzaBase
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :CheeseTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :MozzarellaTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :OliveTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :ParmezanTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :TomatoTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:allValuesFrom [ rdf:type owl:Class ;
+                                      owl:unionOf ( :MozzarellaTopping
+                                                    :OliveTopping
+                                                    :ParmezanTopping
+                                                    :TomatoTopping
+                                                  )
+                                    ]
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasCalorificContentValue ;
+                  owl:someValuesFrom xsd:integer
+                ] ;
+       :purchasedByCustomer :Customer3 ;
+       :hasCalorificContentValue 350 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Soho2
+:Soho2 rdf:type owl:NamedIndividual ,
+                :NamedPizza ,
+                :Pizza ,
+                :SohoPizza ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasBase ;
+                  owl:someValuesFrom :PizzaBase
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :CheeseTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :MozzarellaTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :OliveTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :ParmezanTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:someValuesFrom :TomatoTopping
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasTopping ;
+                  owl:allValuesFrom [ rdf:type owl:Class ;
+                                      owl:unionOf ( :MozzarellaTopping
+                                                    :OliveTopping
+                                                    :ParmezanTopping
+                                                    :TomatoTopping
+                                                  )
+                                    ]
+                ] ,
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasCalorificContentValue ;
+                  owl:someValuesFrom xsd:integer
+                ] ;
+       :purchasedByCustomer :Customer9 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SpicyBeefTopping1
+:SpicyBeefTopping1 rdf:type owl:NamedIndividual ,
+                            :MeatTopping ,
+                            :PizzaTopping ,
+                            :SpicyBeefTopping ;
+                   :isIngredientOf :CustomPizza1 ;
+                   :isToppingOf :CustomPizza1 .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Waiter1
+:Waiter1 rdf:type owl:NamedIndividual ,
+                  :Employee ,
+                  :Person ,
+                  [ owl:intersectionOf ( :Person
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :ssn ;
+                                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onDataRange xsd:string
+                                         ]
+                                       ) ;
+                    rdf:type owl:Class
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :ssn ;
+                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                    owl:onDataRange xsd:string
+                  ] ;
+         :hasPhone "123-567-3214" ;
+         :ssn "12345-678" .
+
+
+###  http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Waiter2
+:Waiter2 rdf:type owl:NamedIndividual ,
+                  :Employee ,
+                  :Person ,
+                  [ owl:intersectionOf ( :Person
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :ssn ;
+                                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onDataRange xsd:string
+                                         ]
+                                       ) ;
+                    rdf:type owl:Class
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :ssn ;
+                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                    owl:onDataRange xsd:string
+                  ] .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ owl:intersectionOf ( :Person
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :purchasedPizza ;
+                         owl:someValuesFrom :Pizza
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasPhone ;
+                         owl:someValuesFrom xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Customer
+] .
+
+
+[ owl:intersectionOf ( :Person
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :purchasedPizza ;
+                         owl:someValuesFrom :Pizza
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasPhone ;
+                         owl:someValuesFrom xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Person
+] .
+
+
+[ owl:intersectionOf ( :Person
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :purchasedPizza ;
+                         owl:someValuesFrom :Pizza
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasPhone ;
+                         owl:someValuesFrom xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :purchasedPizza ;
+                    owl:someValuesFrom :Pizza
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Person
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :purchasedPizza ;
+                         owl:someValuesFrom :Pizza
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasPhone ;
+                         owl:someValuesFrom xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasPhone ;
+                    owl:someValuesFrom xsd:string
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Person
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :ssn ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Person
+] .
+
+
+[ owl:intersectionOf ( :Person
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :ssn ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :ssn ;
+                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                    owl:onDataRange xsd:string
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Class ;
+                         owl:complementOf :VegeterianPizza
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :NonVegetarianPizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Class ;
+                         owl:complementOf :VegeterianPizza
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Pizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Class ;
+                         owl:complementOf :VegeterianPizza
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Class ;
+                    owl:complementOf :VegeterianPizza
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Class ;
+                         owl:complementOf :VegeterianPizza
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasBase ;
+                    owl:someValuesFrom :PizzaBase
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Class ;
+                         owl:complementOf :VegeterianPizza
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom xsd:integer
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :CheesyPizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Pizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasBase ;
+                    owl:someValuesFrom :PizzaBase
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasTopping ;
+                    owl:someValuesFrom :CheeseTopping
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom :CheeseTopping
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom xsd:integer
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasSpiciness ;
+                                                                     owl:someValuesFrom :Hot
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Pizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasSpiciness ;
+                                                                     owl:someValuesFrom :Hot
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :SpicyPizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasSpiciness ;
+                                                                     owl:someValuesFrom :Hot
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasBase ;
+                    owl:someValuesFrom :PizzaBase
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasSpiciness ;
+                                                                     owl:someValuesFrom :Hot
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasTopping ;
+                    owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :hasSpiciness ;
+                                                                owl:someValuesFrom :Hot
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ]
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:someValuesFrom [ owl:intersectionOf ( :PizzaTopping
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasSpiciness ;
+                                                                     owl:someValuesFrom :Hot
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom xsd:integer
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :CheeseTopping
+                                                           :VegetableTopping
+                                                         )
+                                           ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Pizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :CheeseTopping
+                                                           :VegetableTopping
+                                                         )
+                                           ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :VegeterianPizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :CheeseTopping
+                                                           :VegetableTopping
+                                                         )
+                                           ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasBase ;
+                    owl:someValuesFrom :PizzaBase
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :CheeseTopping
+                                                           :VegetableTopping
+                                                         )
+                                           ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasTopping ;
+                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                        owl:unionOf ( :CheeseTopping
+                                                      :VegetableTopping
+                                                    )
+                                      ]
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :CheeseTopping
+                                                           :VegetableTopping
+                                                         )
+                                           ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom xsd:integer
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:minCardinality "3"^^xsd:nonNegativeInteger
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :InterestingPizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:minCardinality "3"^^xsd:nonNegativeInteger
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Pizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:minCardinality "3"^^xsd:nonNegativeInteger
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasBase ;
+                    owl:someValuesFrom :PizzaBase
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:minCardinality "3"^^xsd:nonNegativeInteger
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasTopping ;
+                    owl:minCardinality "3"^^xsd:nonNegativeInteger
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasTopping ;
+                         owl:minCardinality "3"^^xsd:nonNegativeInteger
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom xsd:integer
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :HighCaloriePizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Pizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasBase ;
+                    owl:someValuesFrom :PizzaBase
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom xsd:integer
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                         owl:onDatatype xsd:integer ;
+                                         owl:withRestrictions ( [ xsd:minInclusive 400
+                                                                ]
+                                                              )
+                                       ]
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :LowCaloriePizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :Pizza
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasBase ;
+                    owl:someValuesFrom :PizzaBase
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom xsd:integer
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :Pizza
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasCalorificContentValue ;
+                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                              owl:onDatatype xsd:integer ;
+                                              owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                     ]
+                                                                   )
+                                            ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasCalorificContentValue ;
+                    owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                         owl:onDatatype xsd:integer ;
+                                         owl:withRestrictions ( [ xsd:maxExclusive 400
+                                                                ]
+                                                              )
+                                       ]
+                  ]
+] .
+
+
+[ owl:intersectionOf ( :PizzaTopping
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasSpiciness ;
+                         owl:someValuesFrom :Hot
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf :PizzaTopping
+] .
+
+
+[ owl:intersectionOf ( :PizzaTopping
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasSpiciness ;
+                         owl:someValuesFrom :Hot
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasSpiciness ;
+                    owl:someValuesFrom :Hot
+                  ]
+] .
+
+
+[ rdf:type owl:Class ;
+  owl:unionOf ( :Hot
+                :Medium
+                :Mild
+              ) ;
+  rdfs:subClassOf :SpicinessValuePartition
+] .
+
+
+[ rdf:type owl:Class ;
+  owl:unionOf ( :Hot
+                :Medium
+                :Mild
+              ) ;
+  rdfs:subClassOf :ValuePartition
+] .
+
+
+[ rdf:type owl:Class ;
+  owl:oneOf ( :America
+              :England
+              :France
+              :Germany
+              :Italy
+            ) ;
+  rdfs:subClassOf :Country
+] .
+
+
+[ rdf:type owl:Restriction ;
+  owl:onProperty :hasTopping ;
+  owl:someValuesFrom :MozzarellaTopping ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasTopping ;
+                    owl:someValuesFrom :CheeseTopping
+                  ]
+] .
+
+
+[ rdf:type owl:Restriction ;
+  owl:onProperty :hasTopping ;
+  owl:someValuesFrom :ParmezanTopping ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :hasTopping ;
+                    owl:someValuesFrom :CheeseTopping
+                  ]
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AnchovyTopping
+                :PrawnTopping
+                :TunaTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :CaperTopping
+                :MushroomsTopping
+                :OliveTopping
+                :OnionTopping
+                :PepperTopping
+                :TomatoTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :CheeseTopping
+                :MeatTopping
+                :SeaFoodTopping
+                :VegetableTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :GreenPepperTopping
+                :JalapenoTopping
+                :RedPepperTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :HamTopping
+                :PepperoniTopping
+                :SalamiTopping
+                :SpicyBeefTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Hot
+                :Medium
+                :Mild
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Pizza
+                :PizzaBase
+                :PizzaTopping
+              )
+] .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+<http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "provide a 20% discount for customers that prefer hot pizzas and purchased more than one pizza" ;
+   rdfs:label "HotDiscountRule" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :numberOfPizzasPurchased ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np>
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#greaterThan> ;
+                                                                  <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                               rdf:first <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np> ;
+                                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                                          rdf:first 1 ;
+                                                                                                                          rdf:rest rdf:nil
+                                                                                                                        ]
+                                                                                                             ]
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasSpicinessPreference ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :Hot
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> :Customer ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c>
+                                                                                      ] ;
+                                                                            rdf:rest rdf:nil
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasDiscount ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> 0.2
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "provide a 20% discount for customers that prefer hot pizzas and purchased more than one pizza" ;
+   rdfs:label "HotDiscountSQWRL" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :numberOfPizzasPurchased ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np>
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#greaterThan> ;
+                                                                  <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                               rdf:first <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np> ;
+                                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                                          rdf:first 1 ;
+                                                                                                                          rdf:rest rdf:nil
+                                                                                                                        ]
+                                                                                                             ]
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasSpicinessPreference ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :Hot
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> :Customer ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c>
+                                                                                      ] ;
+                                                                            rdf:rest rdf:nil
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c>
+                                                                                                    <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np>
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "provide a 10% discount for customers that prefer hot pizzas and purchased more than one pizza" ;
+   rdfs:label "MediumDiscountRule" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :numberOfPizzasPurchased ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np>
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasSpicinessPreference ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :Medium
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#greaterThan> ;
+                                                                             <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                          rdf:first <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np> ;
+                                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                     rdf:first 1 ;
+                                                                                                                                     rdf:rest rdf:nil
+                                                                                                                                   ]
+                                                                                                                        ]
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> :Customer ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c>
+                                                                                      ] ;
+                                                                            rdf:rest rdf:nil
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasDiscount ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> 0.1
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "identify prefered customers" ;
+   rdfs:label "PreferedC" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :numberOfPizzasPurchased ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np>
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#greaterThan> ;
+                                                                  <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                               rdf:first <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#np> ;
+                                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                                          rdf:first 1 ;
+                                                                                                                          rdf:rest rdf:nil
+                                                                                                                        ]
+                                                                                                             ]
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasSpicinessPreference ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :Hot
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> :Customer ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c>
+                                                                                      ] ;
+                                                                            rdf:rest rdf:nil
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :PreferedCustomer ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/bina/ontologies/2023/9/pizza#c>
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+###  Generated by the OWL API (version 5.1.18) https://github.com/owlcs/owlapi/
