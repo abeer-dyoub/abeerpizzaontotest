@@ -1,0 +1,239 @@
+{
+  "@context" : {
+    "OnionTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#OnionTopping"
+    },
+    "VegeterianPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#VegeterianPizza"
+    },
+    "AnchovyTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AnchovyTopping"
+    },
+    "PepperTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PepperTopping"
+    },
+    "hasTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasTopping",
+      "@type" : "@id"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "CaperTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CaperTopping"
+    },
+    "isToppingOf" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#isToppingOf",
+      "@type" : "@id"
+    },
+    "SpicyBeefTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SpicyBeefTopping"
+    },
+    "MozzarellaTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MozzarellaTopping"
+    },
+    "MeatTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MeatTopping"
+    },
+    "hasDiscount" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasDiscount",
+      "@type" : "http://www.w3.org/2001/XMLSchema#decimal"
+    },
+    "Country" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Country"
+    },
+    "hasCalorificContentValue" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasCalorificContentValue",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "Thing" : {
+      "@id" : "http://www.w3.org/2002/07/owl#Thing"
+    },
+    "hasSpiciness" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasSpiciness",
+      "@type" : "@id"
+    },
+    "purchasedPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#purchasedPizza",
+      "@type" : "@id"
+    },
+    "HighCaloriePizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#HighCaloriePizza"
+    },
+    "isRuleEnabled" : {
+      "@id" : "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"
+    },
+    "SpicyPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SpicyPizza"
+    },
+    "ssn" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ssn",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "SeaFoodTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SeaFoodTopping"
+    },
+    "TomatoTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#TomatoTopping"
+    },
+    "SpicinessValuePartition" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SpicinessValuePartition"
+    },
+    "Medium" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Medium"
+    },
+    "Customer" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Customer"
+    },
+    "SohoPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SohoPizza"
+    },
+    "isBaseOf" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#isBaseOf",
+      "@type" : "@id"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "hasSpicinessPreference" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasSpicinessPreference",
+      "@type" : "@id"
+    },
+    "PrawnTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PrawnTopping"
+    },
+    "TunaTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#TunaTopping"
+    },
+    "Pizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Pizza"
+    },
+    "PizzaTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PizzaTopping"
+    },
+    "numberOfPizzasPurchased" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#numberOfPizzasPurchased",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "Mild" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Mild"
+    },
+    "Person" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Person"
+    },
+    "AmericanHotPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AmericanHotPizza"
+    },
+    "CheesyPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CheesyPizza"
+    },
+    "RedPepperTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#RedPepperTopping"
+    },
+    "LowCaloriePizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#LowCaloriePizza"
+    },
+    "JalapenoTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#JalapenoTopping"
+    },
+    "GreenPepperTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#GreenPepperTopping"
+    },
+    "ValuePartition" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ValuePartition"
+    },
+    "DeepPan" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#DeepPan"
+    },
+    "InterestingPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#InterestingPizza"
+    },
+    "MergheritaPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MergheritaPizza"
+    },
+    "PreferedCustomer" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PreferedCustomer"
+    },
+    "VegetableTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#VegetableTopping"
+    },
+    "OliveTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#OliveTopping"
+    },
+    "PepperoniTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PepperoniTopping"
+    },
+    "CheeseTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#CheeseTopping"
+    },
+    "PizzaBase" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#PizzaBase"
+    },
+    "AmericanPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#AmericanPizza"
+    },
+    "HamTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#HamTopping"
+    },
+    "isDefinedBy" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#isDefinedBy"
+    },
+    "hasIngredient" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasIngredient",
+      "@type" : "@id"
+    },
+    "hasBase" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasBase",
+      "@type" : "@id"
+    },
+    "ParmezanTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ParmezanTopping"
+    },
+    "UnclosedPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#UnclosedPizza"
+    },
+    "purchasedByCustomer" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#purchasedByCustomer",
+      "@type" : "@id"
+    },
+    "NonVegetarianPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#NonVegetarianPizza"
+    },
+    "isIngredientOf" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#isIngredientOf",
+      "@type" : "@id"
+    },
+    "Hot" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Hot"
+    },
+    "Employee" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#Employee"
+    },
+    "SalamiTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#SalamiTopping"
+    },
+    "ThinAndCrispy" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#ThinAndCrispy"
+    },
+    "MushroomsTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#MushroomsTopping"
+    },
+    "hasCountryOfOrigin" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasCountryOfOrigin",
+      "@type" : "@id"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "InconsistentTopping" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#InconsistentTopping"
+    },
+    "hasPhone" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#hasPhone",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "NamedPizza" : {
+      "@id" : "http://www.semanticweb.org/bina/ontologies/2023/9/pizzaxxx#NamedPizza"
+    }
+  }
+}
